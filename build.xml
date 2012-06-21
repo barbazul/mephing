@@ -57,9 +57,9 @@
 
     <target name="build" depends="getVersion">
         <mkdir dir="releases" mode="777" />
-        <tar destfile="releases/${module.namespace}_${module.name}_${module.versionstr}.tar" compression="gzip">
+        <tar destfile="releases/${module.namespace}_${module.name}-${module.version}.tgz" compression="gzip">
             <fileset refid="projectFiles" />
         </tar>
-        <chmod mode="777" file="releases/${module.namespace}_${module.name}_${module.versionstr}.tar" />
+        <chmod mode="777" file="releases/${module.namespace}_${module.name}-${module.version}.tgz" />
     </target>
 </project>
