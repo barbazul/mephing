@@ -1,4 +1,4 @@
-<?
+<?php
 
 class VersionNumberTask extends Task
 {
@@ -19,9 +19,9 @@ class VersionNumberTask extends Task
         $filepath = realpath("./{$etcPath}config.xml");
         $moduleNode = $this->getModuleFullName();
         $sxe = simplexml_load_file($filepath);
-        $version = $sxe->module->$moduleNode->version;
-        $versionstr = str_replace('.', '_', $version);
-        $this->project->setProperty($this->versionprop, "v$versionstr");
+        $version = $sxe->modules->$moduleNode->version;
+        //$versionstr = str_replace('.', '_', $version);
+        $this->project->setProperty($this->versionprop, $version);
     }
 
     protected function getModuleFullName()

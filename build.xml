@@ -6,7 +6,7 @@
     <taskdef name="versiontask" classname="phing.tasks.my.VersionNumberTask" />
 
     <target name="getVersion">
-      <versiontask versionprop="module.versionstr"/>
+      <versiontask versionprop="module.version"/>
       <echo msg="${module.version}" />
     </target>
 
