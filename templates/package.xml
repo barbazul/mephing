@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<package>
+    <name>{{NAMESPACE}}_{{MODULE}}</name>
+    <version>{{VERSION}}</version>
+    <stability>{{STABILITY}}</stability>
+    <license>{{LICENSE}}</license>
+    <channel>{{CHANNEL}}</channel>
+    <extends/>
+    <summary>{{SUMMARY}}</summary>
+    <description>{{DESCRIPTION}}</description>
+    <notes>{{NOTES}}</notes>
+    <authors>
+        <author>
+            <name>{{NAME}}</name>
+            <user>{{USER}}</user>
+            <email>{{EMAIL}}</email>
+        </author>
+    </authors>
+    <date>{{DATE}}</date>
+    <time>{{TIME}}</time>
+	<contents />
+    <compatible/>
+    <dependencies>
+        <required>
+            <php>
+                <min>{{MINPHP}}</min>
+                <max>{{MAXPHP}}</max>
+            </php>
+        </required>
+    </dependencies>
+</package>

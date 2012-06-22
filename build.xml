@@ -4,6 +4,7 @@
     <property file="build.properties" />
 
     <taskdef name="versiontask" classname="phing.tasks.my.VersionNumberTask" />
+    <taskdef name="contentstask" classname="phing.tasks.my.ContentsTask" />
 
     <target name="getVersion">
       <versiontask versionprop="module.version"/>
@@ -17,19 +18,19 @@
 
     <target name="generate">
         <echo msg="Creating folders..." />
-        <copy file="templates/config.xml" tofile="${path.etc}config.xml" overwrite="true" mode="777">
+        <copy file="templates/config.xml" tofile="${path.etc}config.xml" overwrite="false" mode="777">
             <filterchain>
                 <replacetokens begintoken="{{" endtoken="}}">
                     <token key="NAMESPACE" value="${module.namespace}" />
                     <token key="MODULE" value="${module.name}" />
                     <token key="CODEPOOL" value="${module.codepool}" />
                     <token key="ACTIVE" value="${module.enabled}" />
-                    <token key="VERSION" value="${module.version}" />
+                    <token key="VERSION" value="0.1.0" />
                     <token key="FOO" value="${module.foo}" />
                 </replacetokens>
             </filterchain>
         </copy>
-        <copy file="templates/module.xml" tofile="${path.modules}${module.namespace}_${module.name}.xml" overwrite="true">
+        <copy file="templates/module.xml" tofile="${path.modules}${module.namespace}_${module.name}.xml" overwrite="false">
             <filterchain>
                 <replacetokens begintoken="{{" endtoken="}}">
                     <token key="NAMESPACE" value="${module.namespace}" />
@@ -39,7 +40,7 @@
                 </replacetokens>
             </filterchain>
         </copy>
-        <copy file="templates/helper.php.tpl" tofile="${path.helper}Data.php" overwrite="true">
+        <copy file="templates/helper.php.tpl" tofile="${path.helper}Data.php" overwrite="false">
             <filterchain>
                 <replacetokens begintoken="{{" endtoken="}}">
                     <token key="NAMESPACE" value="${module.namespace}" />
@@ -55,7 +56,37 @@
         <mkdir dir="${path.design.admin}" />
     </target>
 
-    <target name="build" depends="getVersion">
+	<target name="package" depends="getVersion">
+		<tstamp>
+		    <format property="date" pattern="%Y-%m-%d" />
+		    <format property="time" pattern="%H:%M:%S" />
+		</tstamp>	
+		<copy file="templates/package.xml" tofile="${path.root}package.xml" overwrite="true">
+			<filterchain>
+				<replacetokens begintoken="{{" endtoken="}}">
+                    <token key="NAMESPACE" value="${module.namespace}" />
+                    <token key="MODULE" value="${module.name}" />
+                    <token key="VERSION" value="${module.version}" />
+                    <token key="STABILITY" value="${module.stability}" />
+                    <token key="LICENSE" value="${module.license}" />
+                    <token key="CHANNEL" value="${module.codepool}" />
+                    <token key="SUMMARY" value="${module.summary}" />
+                    <token key="DESCRIPTION" value="${module.description}" />
+                    <token key="NOTES" value="${module.notes}" />
+                    <token key="NAME" value="${author.name}" />
+                    <token key="USER" value="${author.user}" />
+                    <token key="EMAIL" value="${author.email}" />
+					<token key="DATE" value="${date}" />
+					<token key="TIME" value="${time}" />
+					<token key="MINPHP" value="${module.php.min}" />
+					<token key="MAXPHP" value="${module.php.max}" />
+				</replacetokens>
+			</filterchain>
+		</copy>
+		<contentstask file="${path.root}package.xml" />
+	</target>
+
+    <target name="build" depends="package">
         <mkdir dir="releases" mode="777" />
         <tar destfile="releases/${module.namespace}_${module.name}-${module.version}.tgz" compression="gzip">
             <fileset refid="projectFiles" />
