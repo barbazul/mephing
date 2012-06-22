@@ -221,6 +221,8 @@ class ContentsTask extends Task
         $this->node = $this->node->addChild('target');
         $this->node->addAttribute('name', 'mage');
         $this->node = $this->node->addChild('dir');
+        $this->node->addAttribute('name', 'app');
+        $this->node = $this->node->addChild('dir');
         $this->node->addAttribute('name', 'etc');
         $this->node = $this->node->addChild('dir');
         $this->node->addAttribute('name', 'modules');

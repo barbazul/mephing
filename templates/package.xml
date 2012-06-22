@@ -4,7 +4,7 @@
     <version>{{VERSION}}</version>
     <stability>{{STABILITY}}</stability>
     <license>{{LICENSE}}</license>
-    <channel>{{CHANNEL}}</channel>
+    <channel>community</channel>
     <extends/>
     <summary>{{SUMMARY}}</summary>
     <description>{{DESCRIPTION}}</description>
